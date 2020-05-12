@@ -1,0 +1,82 @@
+from Tkinter import *
+import random
+import string
+
+#setting up window/canvas
+window = Tk()
+playground = Canvas(window, width=1000, height=750, bg="white")
+playground.pack()
+
+#all lists of characters that will be used in generated passcodes
+nmbrs = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+letrs = string.ascii_letters
+symbls = ["!", "#", "$", "&", "?", "*", "^"]
+
+#list that will have characters put in it to make the actual passcode
+code = []
+
+#chooses random numbrs, ltrs, or symbl from list and puts them into passcode. Similar for all pw options.
+#also clears list each time so you can get new passcode each time not just add to old one.
+def code1(event):
+    code=[]
+    for i in range (6):
+        code.append(random.choice(nmbrs))
+        realpw.configure(text= code, bg="green")
+
+def code2(event):
+    code=[]
+    for i in range (8):
+        code.append(random.choice(nmbrs))
+        realpw.configure(text= code, bg="yellow")
+
+def code3(event):
+    code=[]
+    for i in range(4):
+        code.append(random.choice(letrs))
+    for i in range(3):
+        code.append(random.choice(nmbrs))
+    code.append(random.choice(symbls))
+    realpw.configure(text= code, bg="orange")
+
+def code4(event):
+    code=[]
+    for i in range(6):
+        code.append(random.choice(letrs))
+    code.append(random.choice(symbls))
+    for i in range(4):
+        code.append(random.choice(nmbrs))
+    code.append(random.choice(symbls))
+    realpw.configure(text= code, bg="red")
+
+
+#All labels telling ab program and asking what passcode type is wanted
+introlabel = Label(window, text="Welcome to passcode generator. You can choose from a variety of passcodes for whatever you need.")
+introlabel.place(x=200, y=0)
+
+firstcode = Label(window, text="For a simple 6 number Phone passcode, press M", bg="green")
+firstcode.place(x=50, y=150)
+
+secondcode = Label(window, text="For a longer, 8 number phone passcode, press i", bg="yellow")
+secondcode.place(x=50, y=350)
+
+thirdcode = Label(window, text="For a more complex 8 digit passcode, press L", bg="orange")
+thirdcode.place(x=600, y=150)
+
+fourthcode = Label(window, text="For the most complex, 12 digit pascode, press F", bg="red")
+fourthcode.place(x=600, y=350)
+
+passcodelabel = Label(window, text="Your Passcode is below:")
+passcodelabel.place(x=420, y=500)
+
+realpw = Label(window, text="  ")
+realpw.place(x=450, y= 550)
+
+#makes each passcode function be called when the user presses one of these keys.
+playground.bind_all("<m>", code1)
+playground.bind_all("<i>", code2)
+playground.bind_all("<l>", code3)
+playground.bind_all("<f>", code4)
+
+
+window.mainloop ()
+
